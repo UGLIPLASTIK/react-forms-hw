@@ -6,24 +6,24 @@ const Steps = () => {
     distance: number,
     actions?: HTMLButtonElement,
   }
-  
-  const items: Item[] = [];
 
-  const [list, setList] = useState(items);
+  const items: Array<Item> = [];
+
+  const [list, setList] = useState<Item[]>([]);
   const [inputData, setInputData] = useState('');
   const [inputDistance, setInputDistance] = useState('');
 
-  const handlerDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlerDataChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { target: { value: inputText } } = e;
     setInputData(inputText)
   }
 
-  const handlerDistanceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlerDistanceChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { target: { value: inputText } } = e;
     setInputDistance(inputText)
   }
 
-  const addItem = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const addItem = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
     items.push({data: `${inputData}`, distance: Number(inputDistance)})
     setInputData('');
