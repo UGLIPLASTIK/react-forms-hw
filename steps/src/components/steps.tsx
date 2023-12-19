@@ -1,4 +1,28 @@
+import { useState } from "react";
+
 const Steps = () => {
+  interface Item {
+    data: string,
+    distance: number,
+    actions?: HTMLButtonElement,
+  }
+
+  const items: Item[] = [
+    {
+    data: '22.10.23',
+    distance: 8.4,   
+    },
+    {
+    data: '23.10.23',
+    distance: 6.1,   
+    },
+  ];
+
+  const [list, setList] = useState(items);
+
+  
+  
+
   return (
     <div className="wrapper">
       <form>
@@ -21,7 +45,11 @@ const Steps = () => {
               <span>Действия</span>
             </div>
             <div className="values">
-              <div className="values-item">
+              {items.map(item => <div className="values-item">
+                <span>{item.data}</span><span>{item.distance}</span><span>✘</span>
+              </div>)}
+
+              {/* <div className="values-item">
                 <span>22.11.23</span><span>6.5</span><span>TODO</span>
               </div>
               <div className="values-item">
@@ -29,7 +57,7 @@ const Steps = () => {
               </div>
               <div className="values-item">
                 <span>22.11.23</span><span>6.5</span><span>TODO</span>
-              </div>
+              </div> */}
             </div>
         </fieldset>
       </form>
