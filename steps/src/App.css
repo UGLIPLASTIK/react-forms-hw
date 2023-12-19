@@ -24,11 +24,8 @@ fieldset {
   width: 45%;
 }
 
-label {
-  margin-bottom: 10px;
-}
-
 input {
+  margin-top: 10px;
   border-radius: 7px;
   height: 40px;
 }

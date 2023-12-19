@@ -6,37 +6,50 @@ const Steps = () => {
     distance: number,
     actions?: HTMLButtonElement,
   }
-
-  const items: Item[] = [
-    {
-    data: '22.10.23',
-    distance: 8.4,   
-    },
-    {
-    data: '23.10.23',
-    distance: 6.1,   
-    },
-  ];
+  
+  const items: Item[] = [];
 
   const [list, setList] = useState(items);
+  const [inputData, setInputData] = useState('');
+  const [inputDistance, setInputDistance] = useState('');
 
-  
-  
+  const handlerDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { target: { value: inputText } } = e;
+    setInputData(inputText)
+  }
+
+  const handlerDistanceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { target: { value: inputText } } = e;
+    setInputDistance(inputText)
+  }
+
+  const addItem = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    items.push({data: `${inputData}`, distance: Number(inputDistance)})
+    setInputData('');
+    setInputDistance('');
+    setList(items);
+  }
 
   return (
     <div className="wrapper">
       <form>
         <fieldset>
           <div className="formGroup">
-            <label htmlFor="data">Дата (ДД.ММ.ГГ)</label>
-            <input id="data" type="text" />
+            <label htmlFor="data">
+              Дата (ДД.ММ.ГГ)
+              <input onChange={handlerDataChange} name="data" type="text" value={inputData}/>
+            </label>
           </div>
 
           <div className="formGroup">
-            <label htmlFor="distance">Пройдено км</label>
-            <input id="distance" type="text" />
+            <label>
+              Пройдено км
+              <input onChange={handlerDistanceChange} name="distance" type="number" pattern="^[0-9]+$" value={inputDistance}/>
+            </label>
+            
           </div>   
-          <button>OK</button>
+          <button onClick={addItem}>OK</button>
         </fieldset>
         <fieldset className="results">
             <div className="titles">
@@ -45,19 +58,9 @@ const Steps = () => {
               <span>Действия</span>
             </div>
             <div className="values">
-              {items.map(item => <div className="values-item">
+              {list.map(item => <div key={item.data} className="values-item">
                 <span>{item.data}</span><span>{item.distance}</span><span>✘</span>
               </div>)}
-
-              {/* <div className="values-item">
-                <span>22.11.23</span><span>6.5</span><span>TODO</span>
-              </div>
-              <div className="values-item">
-                <span>22.11.23</span><span>6.5</span><span>TODO</span>
-              </div>
-              <div className="values-item">
-                <span>22.11.23</span><span>6.5</span><span>TODO</span>
-              </div> */}
             </div>
         </fieldset>
       </form>
