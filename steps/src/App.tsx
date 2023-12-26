@@ -24,7 +24,6 @@ function App() {
     e.preventDefault();
     const checkDate = dataList.find(item => item.date == inputDate)
     if(checkDate) {
-      console.log(`Дата ${checkDate.date} есть`);
       checkDate.distance += Number(inputDistance);
       setinputDate('');
       setInputDistance('');
