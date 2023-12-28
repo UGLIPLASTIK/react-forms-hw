@@ -9,7 +9,6 @@ function App() {
   const [inputDate, setinputDate] = useState('');
   const [inputDistance, setInputDistance] = useState('');
   const [dataList, setDataList] = useState([])
-
   const handlerDataChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { target: { value: inputText } } = e;
     setinputDate(inputText)
@@ -22,7 +21,8 @@ function App() {
 
   const addItem = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
-    const checkDate = dataList.find(item => item.date == inputDate)
+    const checkDate = dataList.find(item => item.date == inputDate);
+
     if(checkDate) {
       checkDate.distance += Number(inputDistance);
       setinputDate('');
@@ -44,6 +44,17 @@ function App() {
     setDataList(newData)
   }
 
+  const editItem = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+    const day = e.currentTarget.closest('.values-item')?.querySelector('.date')?.textContent;
+    const distance = e.currentTarget.closest('.values-item')?.querySelector('.distance')?.textContent;
+    const itemIndex = dataList.indexOf(dataList.find(item => item.date == day));
+    setinputDate(day);
+    setInputDistance(distance);
+    const newData = [...dataList]
+    newData.splice(itemIndex, 1)
+    setDataList(newData)
+  }
+
   return (
     <>
       <Form inputDate={inputDate} 
@@ -52,7 +63,8 @@ function App() {
             setInputDistance={handlerDistanceChange}
             addItem={addItem}/>
       <Data list={dataList}
-            delItem={delItem}/>
+            delItem={delItem}
+            editItem={editItem}/>
     </>
   )
 }
